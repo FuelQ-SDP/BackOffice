@@ -1,0 +1,89 @@
+<!-- Header -->
+<app-header></app-header>
+
+<!-- Side navigation -->
+<mat-sidenav-container class="h-[92%]">
+  <mat-sidenav
+    opened
+    mode="side"
+    class="w-[20%] border-r-0 bg-grey-7 text-white p-4 text-center"
+  >
+    <img
+      class="avatar mat-elevation-z8 mx-auto w-28 h-28 rounded-[50%] cursor-pointer"
+      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+    />
+
+    <h4 class="!my-2 text-center">Kamal Perera</h4>
+
+    <mat-divider class="border-t-white"></mat-divider>
+
+    <div class="flex flex-col my-3">
+      <button mat-button routerLink="/main/dashboard" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">home</mat-icon>
+          <span>Dashboard</span>
+        </div>
+      </button>
+      <button mat-button routerLink="/main/fuel-stocks" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">store</mat-icon>
+          <span>Available Stocks</span>
+        </div>
+      </button> 
+      <button mat-button routerLink="/main/fuel-stations" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">local_gas_station</mat-icon>
+          <span>Fuel Stations</span>
+        </div>
+      </button>
+      <button mat-button routerLink="/main/customers" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">supervisor_account</mat-icon>
+          <span>Registered Customers</span>
+        </div>
+      </button>
+      <button mat-button routerLink="/main/vehicles" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">directions_car</mat-icon>
+          <span>Registered Vehicles</span>
+        </div>
+      </button> 
+      <button mat-button routerLink="/main/quota" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">assignment_turned_in</mat-icon>
+          <span>Quota Management</span>
+        </div>
+      </button>
+      <button mat-button routerLink="/main/delivery-schedules" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">schedule</mat-icon>
+          <span>Delivery Schedules</span>
+        </div>
+      </button>
+      <!-- <button mat-button class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">view_list</mat-icon>
+          <span>Reports</span>
+        </div>
+      </button>             -->
+    </div>
+
+    <mat-divider class="border-t-white"></mat-divider>
+
+    <div class="flex flex-col mt-3">
+      <button mat-button class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">help</mat-icon>
+          <p class="!m-0">Help</p>
+        </div>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content here  -->
+  <mat-sidenav-content>
+    <div class="m-4 p-4 rounded border">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

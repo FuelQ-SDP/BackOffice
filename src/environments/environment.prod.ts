@@ -1,3 +1,12 @@
 export const environment = {
-  production: true
+  production: true,
+  firebaseConfig: {
+    apiKey: "xxxxxxxxxxxxxxxxxxxxxx",
+    authDomain: "xxxxxxxxxxxxxxx",
+    projectId: "xxxxxxxxxx",
+    storageBucket: "xxxxxxxxxx",
+    messagingSenderId: "xxxxxxxxxx",
+    appId: "xxxxxxxxx",
+    measurementId: "xxxxxxxxxx"
+  }
 };

@@ -1,0 +1,19 @@
+<div class="bg-slate-300 w-full h-full flex flex-col justify-center items-center">
+    <span class="font-medium text-black text-xl mb-4">PowerFuel Console</span>
+    <div class="flex flex-col justify-center items-center bg-white w-[30%] rounded  py-6">
+        <span class="font-bold">Sign In</span>
+        <div class="flex flex-col w-[80%] mt-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" name="email" [(ngModel)]="email">
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password" name="password" [(ngModel)]="password">
+            </mat-form-field>
+  
+            <button mat-button class="bg-gray-800 text-white" (click)="signIn()">Sign In</button>
+          </div>
+    </div>
+</div>
