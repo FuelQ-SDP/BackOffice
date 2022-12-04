@@ -1,1 +1,156 @@
-<p>fuel-station works!</p>
+<div class="p-4">
+    <span class="flex space-x-2 items-center justify-start w-[20%] rounded border border-grey-4 cursor-pointer hover:bg-gray-100 hover:border-gray-400 p-2 mb-2" (click)="backToPrevious()">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back To Previous</span>
+    </span>
+    <span class="flex justify-between">
+        <span class="flex space-x-3">
+            <mat-icon class="mr-2">local_gas_station</mat-icon>
+            <h3 class="!font-bold">{{ stationName }} {{ "(" + stationId + ")" }}</h3>
+        </span>
+        <button
+          class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white"
+          (click)="openScheduleFuelDelivery(scheduleDeliveryModal)"  
+        >
+          Schedule a new fuel delivery
+        </button>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="flex w-full space-x-3">
+        <span class="w-1/2 border border-gray-500 rounded-lg bg-gray-100 hover:bg-gray-200 hover:border-gray-400 p-4">
+            <span class="font-medium">Current Available Petrol Stock</span>
+            <mat-divider class="!mb-3"></mat-divider>
+        
+            <span class="flex flex-col mt-2 space-y-3">
+                <span class="flex w-full">
+                    <span class="w-1/3">Current Date :</span>
+                    <span class="w-2/3 font-medium">{{ currentDate }}</span>
+                </span>
+                <span class="flex w-full">
+                    <span class="w-1/3">Available Stock :</span>
+                    <span class="w-2/3 font-medium">{{ availablePetrolAmount | number }} Ltrs</span>
+                </span>
+            </span>    
+        </span>
+        <span class="w-1/2 border border-gray-500 rounded-lg bg-gray-100 hover:bg-gray-200 hover:border-gray-400 p-4">
+            <span class="font-medium">Current Available Diesel Stock</span>
+            <mat-divider class="!mb-3"></mat-divider>
+
+            <span class="flex flex-col mt-2 space-y-3">
+                <span class="flex w-full">
+                    <span class="w-1/3">Current Date :</span>
+                    <span class="w-2/3 font-medium">{{ currentDate }}</span>
+                </span>
+                <span class="flex w-full">
+                    <span class="w-1/3">Available Stock :</span>
+                    <span class="w-2/3 font-medium">{{ availableDieselAmount | number }} Ltrs</span>
+                </span>
+            </span>   
+        </span>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Fuel Station Details</span>
+    <span class="w-full mt-3 grid grid-cols-3 gap-x-3">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Station ID</mat-label>
+            <input matInput placeholder="Station ID" [(ngModel)]="stationId" readonly />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Station Name</mat-label>
+            <input matInput placeholder="Station Name" [(ngModel)]="stationName" readonly />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>District</mat-label>
+            <input matInput placeholder="Phone Number" [(ngModel)]="district" readonly />
+        </mat-form-field>
+    </span>  
+    <span class="w-full grid grid-cols-3 gap-x-3">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Phone Number" [(ngModel)]="phone" readonly />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea
+              matInput
+              placeholder="Station Address" [(ngModel)]="address" readonly>
+            </textarea>
+        </mat-form-field>
+    </span>    
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Fuel stocks delivery summary</span>
+    <div class="w-full h-[300px] overflow-y-scroll flex flex-col space-y-2 mt-3" *ngIf="schedules.length > 0">
+        <span *ngFor="let schedule of schedules">
+            <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400">
+                <span class="w-5/6 flex items-center space-x-3">
+                    <span class="text-sm">Date : <span class="font-medium">{{ schedule.scheduledDate }}</span></span>
+                    <span class="text-sm border-l border-l-grey-4 pl-2">Time : <span class="font-medium">{{ schedule.scheduledTime }}</span></span>
+                    <span class="text-sm border-l border-l-grey-4 pl-2">Fuel Type : <span class="font-medium">{{ schedule.scheduledFuelType }}</span></span>
+                </span>
+                <span class="w-1/6 flex justify-end items-center">
+                    <span class="text-sm font-medium text-green-800">{{ schedule.scheduledFuelAmount | number }} Ltrs</span>
+                </span>
+            </span>
+        </span>
+    </div>
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="schedules.length == 0">
+        <span class="font-medium text-grey-4 text-base">No scheduled deliveries to view.</span>
+    </span>
+    
+    <!-- schedule new delivery - modal -->
+    <ng-template #scheduleDeliveryModal>
+        <h2 matDialogTitle>Schedule a new fuel delivery</h2>
+        <mat-dialog-content>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Scheduled Date</mat-label>
+                <input matInput [matDatepicker]="picker" readonly [(ngModel)]="schedulingDate" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Scheduled Time</mat-label>
+                <input matInput placeholder="Scheduled TIme" type="time" [(ngModel)]="schedulingTime">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Fuel Type *</mat-label>
+                <mat-select [(ngModel)]="schedulingFuelType">
+                  <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{
+                    fuelType
+                  }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Fuel Amount (Ltrs)</mat-label>
+                <input matInput placeholder="Fuel Amount" (keypress)="isNumber($event)" [(ngModel)]="schedulingFuelAmount">
+            </mat-form-field>
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+        <span class="flex space-x-3">
+            <button
+            matDialogClose
+            class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white w-32"
+            (click)="scheduleDelivery()"
+            >
+            Schedule
+            </button>
+            <button
+            matDialogClose
+            class="border-red-700 border p-2 rounded text-red-700 hover:bg-red-700 hover:text-white w-32"
+            >
+            Cancel
+            </button>
+        </span>
+        </mat-dialog-actions>
+    </ng-template>
+</div>
