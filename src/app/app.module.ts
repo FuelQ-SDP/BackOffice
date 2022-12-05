@@ -40,6 +40,7 @@ import { QuotaComponent } from './quota/quota.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DeliverySchedulesComponent } from './delivery-schedules/delivery-schedules.component';
 import { ScheduleDetailsComponent } from './schedule-details/schedule-details.component';
+import { ManagePumpersComponent } from './manage-pumpers/manage-pumpers.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ScheduleDetailsComponent } from './schedule-details/schedule-details.co
     VehicleHistoryComponent,
     QuotaComponent,
     DeliverySchedulesComponent,
-    ScheduleDetailsComponent
+    ScheduleDetailsComponent,
+    ManagePumpersComponent
   ],
   imports: [
     BrowserModule,
