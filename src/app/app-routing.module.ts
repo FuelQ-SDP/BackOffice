@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeliverySchedulesComponent } from './delivery-schedules/delivery-schedules.component';
 import { FuelStationComponent } from './fuel-station/fuel-station.component';
 import { FuelStationsComponent } from './fuel-stations/fuel-stations.component';
+import { ManagePumpersComponent } from './manage-pumpers/manage-pumpers.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { QuotaComponent } from './quota/quota.component';
 import { ScheduleDetailsComponent } from './schedule-details/schedule-details.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'quota', component: QuotaComponent },
       { path: 'delivery-schedules', component: DeliverySchedulesComponent },
       { path: 'schedule-details', component: ScheduleDetailsComponent },
+      { path: 'manage-pumpers', component: ManagePumpersComponent }
     ] 
   }
 ];

@@ -1,0 +1,113 @@
+<div class="p-4">
+    <span class="flex justify-between">
+        <span class="flex space-x-3">
+            <mat-icon class="mr-2">supervised_user_circle</mat-icon>
+            <h3 class="!font-bold">Manage Pumpers</h3>
+        </span>
+    </span>
+
+    <mat-divider class="!mb-3"></mat-divider>
+
+    <span class="flex space-x-2">
+        <span class="mt-5">Select Fuel Station : </span>
+        <mat-form-field appearance="outline">
+            <mat-label>Fuel Station</mat-label>
+            <mat-select (selectionChange)="searchByFuelStation()" [(ngModel)]="selectedFuelStationForSearch">
+              <mat-option *ngFor="let fuelStation of fuelStations" [value]="fuelStation">{{
+                fuelStation.stationName
+              }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </span>
+
+    <mat-divider class="!mb-3"></mat-divider>
+
+    <span class="flex justify-between items-center">
+        <span class="font-medium">List of pumpers</span>
+        <button
+          class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white"          
+          (click)="openAddNewPumperModal(addNewPumperModal)"  
+        >
+          Add New Pumper
+        </button>
+    </span>
+
+    <div class="w-full h-[500px] overflow-y-scroll flex flex-col space-y-2 mt-3" *ngIf="!isSearched && pumpers.length > 0">
+        <span *ngFor="let pumper of pumpers; let i = index">
+            <span class="flex items-center space-x-2">
+                <span class="font-medium text-sm">{{ i + 1 }}.</span>
+                <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400">
+                    <span class="w-full flex justify-between items-center space-x-3">
+                        <span class="w-3/5 font-medium">{{ pumper.email }}</span>
+                        <span class="w-2/5 font-medium">{{ pumper.fillingStationName }}</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </div> 
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="!isSearched && pumpers.length == 0">
+        <span class="font-medium text-grey-4 text-base">No pumpers to view.</span>
+    </span>
+
+    <div class="w-full h-[500px] overflow-y-scroll flex flex-col space-y-2 mt-3" *ngIf="isSearched && searchedResults.length > 0">
+        <span *ngFor="let pumper of searchedResults; let i = index">
+            <span class="flex items-center space-x-2">
+                <span class="font-medium text-sm">{{ i + 1 }}.</span>
+                <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400">
+                    <span class="w-full flex justify-between items-center space-x-3">
+                        <span class="w-3/5 font-medium">{{ pumper.email }}</span>
+                        <span class="w-2/5 font-medium">{{ pumper.fillingStationName }}</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </div> 
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="isSearched && searchedResults.length == 0">
+        <span class="font-medium text-grey-4 text-base">No pumpers for {{ selectedStationNameForSearch }} to view.</span>
+    </span>
+
+    <!-- Add new pumper - modal -->
+    <ng-template #addNewPumperModal>
+        <h2 matDialogTitle>Add New Pumper</h2>
+        <mat-dialog-content>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Fuel Station *</mat-label>
+                <mat-select [(ngModel)]="selectedFuelStationToAddPumper">
+                  <mat-option *ngFor="let fuelStation of fuelStations" [value]="fuelStation">{{
+                    fuelStation.stationName
+                  }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Email *</mat-label>
+                <input matInput placeholder="email" [(ngModel)]="email" />
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Password *</mat-label>
+                <input matInput placeholder="password" [(ngModel)]="password" />
+            </mat-form-field>
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+        <span class="flex space-x-3">
+            <button
+            matDialogClose
+            class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white w-32"
+            (click)="createNewPumper()"
+            >
+            Save
+            </button>
+            <button
+            matDialogClose
+            class="border-red-700 border p-2 rounded text-red-700 hover:bg-red-700 hover:text-white w-32"
+            >
+            Cancel
+            </button>
+        </span>
+        </mat-dialog-actions>
+    </ng-template>
+
+</div>

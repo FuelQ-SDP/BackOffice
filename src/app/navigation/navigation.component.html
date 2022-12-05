@@ -13,9 +13,9 @@
       src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
     />
 
-    <h4 class="!my-2 text-center">Kamal Perera</h4>
+    <!-- <h4 class="!my-2 text-center">Kamal Perera</h4> -->
 
-    <mat-divider class="border-t-white"></mat-divider>
+    <mat-divider class="border-t-white !my-4"></mat-divider>
 
     <div class="flex flex-col my-3">
       <button mat-button routerLink="/main/dashboard" class="hover:bg-grey-6">
@@ -34,6 +34,12 @@
         <div class="flex items-center">
           <mat-icon class="mr-2">local_gas_station</mat-icon>
           <span>Fuel Stations</span>
+        </div>
+      </button>
+      <button mat-button routerLink="/main/manage-pumpers" class="hover:bg-grey-6">
+        <div class="flex items-center">
+          <mat-icon class="mr-2">supervised_user_circle</mat-icon>
+          <span>Manage Pumpers</span>
         </div>
       </button>
       <button mat-button routerLink="/main/customers" class="hover:bg-grey-6">
