@@ -1,1 +1,68 @@
-<p>fuel-stations works!</p>
+<div class="p-4">
+    <span class="flex justify-between">
+        <span class="flex space-x-3">
+            <mat-icon class="mr-2">local_gas_station</mat-icon>
+            <h3 class="!font-bold">Fuel Stations</h3>
+        </span>
+        <mat-form-field appearance="outline">
+            <mat-label>District</mat-label>
+            <mat-select (selectionChange)="searchByDistrict()" [(ngModel)]="selectedDistrict">
+              <mat-option *ngFor="let district of districts" [value]="district">{{
+                district
+              }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </span>
+
+    <mat-divider class="!mb-3"></mat-divider>
+
+    <div class="w-full h-[500px] overflow-y-scroll flex flex-col space-y-2" *ngIf="!isSearched && fuelStations.length > 0">
+        <span *ngFor="let station of fuelStations; let i = index">
+            <span class="flex items-center space-x-2">
+                <span class="font-medium text-sm">{{ i + 1 }}.</span>
+                <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400" (click)="navigateToFuelStation(station)">
+                    <span class="w-5/7 flex items-center space-x-3">
+                        <span class="text-sm">ID : <span class="font-medium">{{ station.stationId }}</span></span>
+                        <span class="flex justify-start items-center border-l border-l-grey-4 pl-2">
+                            <span class="text-sm">Station : <span class="font-medium">{{ station.stationName }}</span></span>
+                        </span>
+                    </span>
+                    <span class="w-2/7 flex items-center space-x-3">
+                        <span class="text-sm">District : <span class="font-medium">{{ station.district }}</span></span>
+                    </span>
+                    <!-- <span class="w-1/7 flex justify-end items-center">
+                        <span class="w-1/7 text-xs font-medium text-red-800 border border-red-800 rounded p-1">Low stock</span>
+                    </span> -->
+                </span>
+            </span>
+        </span>
+    </div>
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="!isSearched && fuelStations.length == 0">
+        <span class="font-medium text-grey-4 text-base">No Fuel Stations to view</span>
+    </span>
+    
+    <div class="w-full h-[500px] overflow-y-scroll flex flex-col space-y-2" *ngIf="isSearched && searchedResults.length > 0">
+        <span *ngFor="let station of searchedResults; let i = index">
+            <span class="flex items-center space-x-2">
+                <span class="font-medium text-sm">{{ i + 1 }}.</span>
+                <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400" (click)="navigateToFuelStation(station)">
+                    <span class="w-5/7 flex items-center space-x-3">
+                        <span class="text-sm">ID : <span class="font-medium">{{ station.stationId }}</span></span>
+                        <span class="flex justify-start items-center border-l border-l-grey-4 pl-2">
+                            <span class="text-sm">Station : <span class="font-medium">{{ station.stationName }}</span></span>
+                        </span>
+                    </span>
+                    <span class="w-2/7 flex items-center space-x-3">
+                        <span class="text-sm">District : <span class="font-medium">{{ station.district }}</span></span>
+                    </span>
+                    <!-- <span class="w-1/7 flex justify-end items-center">
+                        <span class="w-1/7 text-xs font-medium text-red-800 border border-red-800 rounded p-1">Low stock</span>
+                    </span> -->
+                </span>
+            </span>
+        </span>
+    </div>
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="isSearched && searchedResults.length == 0">
+        <span class="font-medium text-grey-4 text-base">No Search Results</span>
+    </span>
+</div>
