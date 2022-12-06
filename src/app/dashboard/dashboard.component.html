@@ -1,1 +1,65 @@
-<p>dashboard works!</p>
+<div class="p-4">
+    <span class="flex space-x-3">
+        <mat-icon class="mr-2">home</mat-icon>
+        <h3 class="!font-bold">Dashboard</h3>
+    </span>
+
+    <mat-divider class="!mb-3"></mat-divider>
+
+    <span class="grid grid-cols-3 gap-x-3 gap-y-3">
+        <button
+          class="p-8 w-full border border-gray-500 rounded-lg bg-gray-100 hover:bg-gray-200 hover:border-gray-400"
+        >
+          <span class="font-medium text-3xl">{{ fillingStationsCount }}</span>
+          <h3 class="!font-bold !m-0">Total Filling Stations</h3>
+        </button>
+        <button
+          class="p-8 w-full border border-gray-500 rounded-lg bg-gray-100 hover:bg-gray-200 hover:border-gray-400"
+        >
+          <span class="font-medium text-3xl">{{ vehiclesCount | number }}</span>
+          <h3 class="!font-bold !m-0">Total Registered Vehicles</h3>
+        </button>
+        <button
+          class="p-8 w-full border border-gray-500 rounded-lg bg-gray-100 hover:bg-gray-200 hover:border-gray-400"
+        >
+          <span class="font-medium text-3xl">{{ customersCount | number }}</span>
+          <h3 class="!font-bold !m-0">Total Registered Customers</h3>
+        </button>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="flex w-full space-x-3">
+        <span class="w-1/2">
+            <span class="font-medium">Fuel Dispatch summary for last 5 days</span>
+            <canvas baseChart *ngIf="isFuelDispatchBarChartDataLoaded" height="150"
+                [data]="barChartDataFuelDispatch"
+                [options]="barChartOptionsFuelDispatch"
+                [plugins]="barChartPluginsFuelDispatch"
+                [legend]="barChartLegendFuelDispatch"
+                [type]="'bar'">
+            </canvas>
+        </span>
+        <span class="w-1/2">
+            <span class="font-medium">Pumped fuel amounts summary for last 5 days</span>
+            <canvas baseChart *ngIf="isPumpedFuelBarChartDataLoaded" height="150"
+                [data]="barChartDataPumpedFuelAmounts"
+                [options]="barChartOptionsPumpedFuelAmounts"
+                [plugins]="barChartPluginsPumpedFuelAmounts"
+                [legend]="barChartLegendPumpedFuelAmounts"
+                [type]="'bar'">
+            </canvas>
+        </span>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Summary of Vehicle Registrations</span>
+    
+    <canvas baseChart *ngIf="isLineChartDatLoaded" height="100"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+    </canvas>
+</div>
