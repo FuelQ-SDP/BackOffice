@@ -1,1 +1,144 @@
-<p>quota works!</p>
+<div class="p-4">
+    <span class="flex space-x-3">
+        <mat-icon class="mr-2">directions_car</mat-icon>
+        <h3 class="!font-bold">Quota Allocation</h3>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Vehicle Details</span>
+    
+    <span class="grid grid-cols-3 gap-3 mt-2">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Vehicle Type *</mat-label>
+            <input matInput placeholder="Vehicle Type" [(ngModel)]="vehicleType" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Fuel Type *</mat-label>
+            <mat-select [(ngModel)]="fuelType">
+              <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{
+                fuelType
+              }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Allocated Weekly Quota (Ltrs) *</mat-label>
+            <input matInput placeholder="Weekly Quota" [(ngModel)]="weeklyQuota" (keypress)="isNumber($event)" />
+        </mat-form-field>
+    </span>
+
+    <span class="flex space-x-2">
+        <button 
+            *ngIf="!isRowSelected"
+            class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white w-32"
+            (click)="createVehicleQuota()"
+        >
+            Save
+        </button>
+        <button 
+            *ngIf="isRowSelected"
+            class="border-blue-700 border p-2 rounded text-blue-700 hover:bg-blue-700 hover:text-white w-32"
+            (click)="updateVehicleQuota()"
+        >
+            Update
+        </button>
+        <button 
+            *ngIf="isRowSelected"
+            class="border-red-700 border p-2 rounded text-red-700 hover:bg-red-700 hover:text-white w-32"
+            (click)="openRemoveConfirmationDialog(confirmationDialog)"
+        >
+            Remove
+        </button>
+        <button 
+            class="border-orange-700 border p-2 rounded text-orange-700 hover:bg-orange-700 hover:text-white w-32"
+            (click)="clear()"
+        >
+            Clear
+        </button>
+    </span>
+    
+
+    <mat-divider class="!my-3"></mat-divider>  
+
+    <table
+        mat-table
+        [dataSource]="quotas"
+        class="mat-elevation-z8 w-full mt-3 h-[100px] overflow-y-scroll"
+    >
+        <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- index Column -->
+        <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let quota; let i = index">
+            {{ i + 1 }}
+        </td>
+        </ng-container>
+
+        <!-- Vehicle Type Column -->
+        <ng-container matColumnDef="vehicleType">
+        <th mat-header-cell *matHeaderCellDef>Vehicle Type</th>
+        <td mat-cell *matCellDef="let quota">
+            {{ quota.vehicleType }}
+        </td>
+        </ng-container>
+
+        <!-- Vehicle Type Column -->
+        <ng-container matColumnDef="fuelType">
+            <th mat-header-cell *matHeaderCellDef>Fuel Type</th>
+            <td mat-cell *matCellDef="let quota">
+                {{ quota.fuelType }}
+            </td>
+        </ng-container>
+
+        <!-- Quota Amount Column -->
+        <ng-container matColumnDef="quota">
+        <th mat-header-cell *matHeaderCellDef>Weekly Quota (Ltrs)</th>
+        <td mat-cell *matCellDef="let quota">
+            {{ quota.weeklyQuota }} Ltrs
+        </td>
+        </ng-container>
+
+        <!-- Last Update At Column -->
+        <ng-container matColumnDef="lastUpdateAt">
+            <th mat-header-cell *matHeaderCellDef>Last Updated At</th>
+            <td mat-cell *matCellDef="let quota">
+                {{  quota.lastUpdatedAt }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="clickOnTableRow(row)"
+            class="cursor-pointer hover:bg-grey-3"
+        ></tr>
+    </table>
+    
+    <!-- Confirmation Dialog template -->
+  <ng-template #confirmationDialog>
+    <h2 matDialogTitle>Remove Confirmation!</h2>
+    <mat-dialog-content>
+      <p>Are you sure you want to remove this ?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <span class="flex space-x-3">
+        <button
+          matDialogClose
+          class="border-green-700 border p-2 rounded text-green-700 hover:bg-green-700 hover:text-white w-32"
+        >
+          No
+        </button>
+        <button
+          matDialogClose
+          class="border-red-700 border p-2 rounded text-red-700 hover:bg-red-700 hover:text-white w-32"
+          (click)="removeVehicleQuota()"
+        >
+          Yes
+        </button>
+      </span>
+    </mat-dialog-actions>
+  </ng-template>
+</div>
