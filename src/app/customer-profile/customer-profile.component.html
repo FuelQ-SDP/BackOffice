@@ -1,1 +1,62 @@
-<p>customer-profile works!</p>
+<div class="p-4">
+    <span class="flex justify-between">
+        <span class="flex space-x-3">
+            <mat-icon class="mr-2">perm_identity</mat-icon>
+            <h3 class="!font-bold">Customer Profile</h3>
+        </span>
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Customer's Personal Details</span>
+    
+    <span class="grid grid-cols-4 gap-2 mt-2">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Customer Name" [(ngModel)]="customerName" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>NIC</mat-label>
+            <input matInput placeholder="NIC" [(ngModel)]="nic" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Phone Number" [(ngModel)]="phone" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" [(ngModel)]="email" readonly />
+        </mat-form-field>
+
+    </span>
+
+    <mat-divider class="!my-3"></mat-divider>
+
+    <span class="font-medium">Customer's Registered Vehicles</span>
+
+    <div class="w-full flex flex-col space-y-2 mt-2" *ngIf="vehicles.length > 0">
+        <span *ngFor="let vehicle of vehicles; let i = index">
+            <span class="flex items-center space-x-2">
+                <span class="font-medium text-sm">{{ i + 1 }}.</span>
+                <span class="w-full border border-grey-4 rounded p-4 flex justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-400" (click)="navigateToVehicleProfile(vehicle)">
+                    <span class="w-5/7 flex items-center space-x-3">
+                        <span class="text-sm">Vehicle No : <span class="font-medium">{{ vehicle.vehicleNo }}</span></span>
+                        <span class="flex justify-start items-center border-l border-l-grey-4 pl-2">
+                            <span class="text-sm">Type : <span class="font-medium">{{ vehicle.vehicleType }}</span></span>
+                        </span>
+                    </span>
+                    <span class="w-2/7 flex justify-end items-center">
+                        <span class="w-1/7 text-xs font-medium text-blue-800 border border-blue-800 rounded p-1">Fuel Type : {{ vehicle.fuelType }}</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </div> 
+    <span class="w-full h-[200px] flex justify-center items-center" *ngIf="vehicles.length == 0">
+        <span class="font-medium text-grey-4 text-base">No vehicles to view.</span>
+    </span> 
+    
+</div>
